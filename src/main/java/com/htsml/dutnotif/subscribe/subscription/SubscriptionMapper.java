@@ -8,7 +8,12 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface SubscriptionMapper {
-    SubscriptionDto toDto(Subscription subscription);
+    default SubscriptionDto toDto(Subscription subscription){
+        SubscriptionDto subscriptionDto = new SubscriptionDto();
+        subscriptionDto.setSubscriberId(subscription.getPrimaryKey().getSubscriber().getId());
+        subscriptionDto.setSubject(subscription.getPrimaryKey().getSubject());
+        return subscriptionDto;
+    }
 
 
     default Subscription toEntity(CreateSubscriptionDto createSubscriptionDto) {

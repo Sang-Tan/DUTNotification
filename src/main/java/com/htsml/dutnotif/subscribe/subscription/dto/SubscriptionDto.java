@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SubscriptionDto {
-    private String subscriberId;
+    private Integer subscriberId;
 
     private String subject;
 
