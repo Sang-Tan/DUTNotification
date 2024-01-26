@@ -1,5 +1,6 @@
 package com.htsml.dutnotif.notification.back;
 
+import com.htsml.dutnotif.messenger.send.chat.MessengerChatService;
 import com.htsml.dutnotif.messenger.send.notif.MessengerNotifService;
 import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
 import com.htsml.dutnotif.notification.group.NewGroupNotificationEvent;
@@ -11,13 +12,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MessengerNewGroupNotifInformer implements ApplicationListener<NewGroupNotificationEvent> {
-    private final MessengerNotifService messengerNotifService;
+    private final MessengerChatService messengerChatService;
 
     private final SubscriptionService subscriptionService;
 
-    public MessengerNewGroupNotifInformer(MessengerNotifService messengerNotifService,
+    public MessengerNewGroupNotifInformer(MessengerChatService messengerChatService,
                                           SubscriptionService subscriptionService) {
-        this.messengerNotifService = messengerNotifService;
+        this.messengerChatService = messengerChatService;
         this.subscriptionService = subscriptionService;
     }
 
@@ -30,6 +31,6 @@ public class MessengerNewGroupNotifInformer implements ApplicationListener<NewGr
         subscriptionService.findSubscribersForGroup(SearchSubscribersCodeDto.builder()
                 .groupId(notificationDto.getGroup())
                 .subscriberType(SubscriberTypeEnum.MESSENGER)
-                .build()).forEach(subscriber -> messengerNotifService.sendOneTimeNotif(subscriber, content));
+                .build()).forEach(subscriber -> messengerChatService.sendEventMessage(subscriber.getCode(), content));
     }
 }

@@ -29,4 +29,17 @@ public class MessengerChatServiceImpl implements MessengerChatService {
 
         messengerSendApi.sendMessage(body.toString());
     }
+
+    @Override
+    public void sendEventMessage(String subject, String message) {
+        ObjectNode body = objectMapper.createObjectNode();
+        body.put("messaging_type", "MESSAGE_TAG");
+        body.put("tag", "CONFIRMED_EVENT_UPDATE");
+        body.set("recipient", objectMapper.createObjectNode()
+                .put("id", subject));
+        body.set("message", objectMapper.createObjectNode()
+                .put("text", message));
+
+        messengerSendApi.sendMessage(body.toString());
+    }
 }
