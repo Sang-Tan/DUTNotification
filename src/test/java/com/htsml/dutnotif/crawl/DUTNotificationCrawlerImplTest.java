@@ -1,8 +1,9 @@
 package com.htsml.dutnotif.crawl;
 
+import com.htsml.dutnotif.notification.crawl.DUTNotificationCrawlerImpl;
+import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

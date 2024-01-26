@@ -1,7 +1,8 @@
-package com.htsml.dutnotif.crawl;
+package com.htsml.dutnotif.notification.crawl;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -9,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class DUTNotificationCrawlerImpl implements DUTNotificationCrawler{
     @Override
     public List<GroupNotificationDto> getGroupNotifications(int page) {

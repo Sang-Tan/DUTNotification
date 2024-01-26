@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.crawl;
+package com.htsml.dutnotif.notification.crawl;
 
 import java.util.List;
 

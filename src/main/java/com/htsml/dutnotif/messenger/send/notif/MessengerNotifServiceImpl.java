@@ -6,6 +6,7 @@ import com.htsml.dutnotif.messenger.send.MessengerSendApi;
 import com.htsml.dutnotif.messenger.send.notif.dto.SubscribeNotifDto;
 import com.htsml.dutnotif.subscribe.subscriber.SubscriberService;
 import com.htsml.dutnotif.subscribe.subscriber.dto.CreateSubscriberDto;
+import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
 import com.htsml.dutnotif.subscribe.subscription.SubscriptionService;
 import lombok.extern.log4j.Log4j2;
@@ -20,17 +21,13 @@ public class MessengerNotifServiceImpl implements MessengerNotifService {
 
     private final MessengerSendApi messengerSendApi;
 
-    private final SubscriptionService subscriptionService;
-
     private final SubscriberService subscriberService;
 
     public MessengerNotifServiceImpl(ObjectMapper objectMapper,
                                      MessengerSendApi messengerSendApi,
-                                     SubscriptionService subscriptionService,
                                      SubscriberService subscriberService) {
         this.objectMapper = objectMapper;
         this.messengerSendApi = messengerSendApi;
-        this.subscriptionService = subscriptionService;
         this.subscriberService = subscriberService;
     }
 
@@ -74,24 +71,14 @@ public class MessengerNotifServiceImpl implements MessengerNotifService {
     }
 
     @Override
-    public void sendOneTimeNotif(String subscriberId) {
+    public void sendOneTimeNotif(SubscriberDto subscriber, String text) {
+        String oneTimeNotifToken = subscriber.getAdditionalInfo();
+
         ObjectNode body = objectMapper.createObjectNode();
         body.set("recipient", objectMapper.createObjectNode()
-                .put("id", subscriberId));
+                .put("one_time_notif_token", oneTimeNotifToken));
         body.set("message", objectMapper.createObjectNode()
-                .set("attachment", objectMapper.createObjectNode()
-                        .put("type", "template")
-                        .set("payload", objectMapper.createObjectNode()
-                                .put("template_type", "generic")
-                                .set("elements", objectMapper.createArrayNode()
-                                        .add(objectMapper.createObjectNode()
-                                                .put("title", "One Time Notification")
-                                                .put("subtitle", "This is a one time notification")
-                                                .set("buttons", objectMapper.createArrayNode()
-                                                        .add(objectMapper.createObjectNode()
-                                                                .put("type", "postback")
-                                                                .put("title", "Click Here")
-                                                                .put("payload", PAYLOAD))))))));
+                .put("text", text));
 
         messengerSendApi.sendMessage(body.toString());
     }

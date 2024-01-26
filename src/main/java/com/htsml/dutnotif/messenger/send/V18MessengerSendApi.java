@@ -39,7 +39,8 @@ public class V18MessengerSendApi implements MessengerSendApi {
             log.debug("Sending message to messenger:\n Method: {}\n URL: {}\n body: {}", connection.getRequestMethod(), connection.getURL(), body);
             int responseCode = connection.getResponseCode();
             if (responseCode != 200) {
-                log.error("Error while sending message, response code: {}", responseCode);
+                log.error("Error while sending message, response code: {}, body:\n{}", responseCode,
+                        connection.getResponseMessage());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

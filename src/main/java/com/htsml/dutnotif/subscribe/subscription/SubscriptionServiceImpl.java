@@ -1,14 +1,16 @@
 package com.htsml.dutnotif.subscribe.subscription;
 
 import com.htsml.dutnotif.subscribe.subscriber.Subscriber;
+import com.htsml.dutnotif.subscribe.subscriber.SubscriberMapper;
 import com.htsml.dutnotif.subscribe.subscriber.SubscriberService;
 import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
 import com.htsml.dutnotif.subscribe.subscription.dto.CreateSubscriptionDto;
-import com.htsml.dutnotif.subscribe.subscription.dto.SubscriptionDto;
+import com.htsml.dutnotif.subscribe.subscription.dto.SearchSubscribersCodeDto;
 import com.htsml.dutnotif.subscribe.subscription.entity.SubscriptionId;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -22,12 +24,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     private final SubscriptionMapper subscriptionMapper;
 
+    private final SubscriberMapper subscriberMapper;
+
     public SubscriptionServiceImpl(SubscriberService subscriberService,
                                    SubscriptionRepository subscriptionRepository,
-                                   SubscriptionMapper subscriptionMapper) {
+                                   SubscriptionMapper subscriptionMapper,
+                                   SubscriberMapper subscriberMapper) {
         this.subscriberService = subscriberService;
         this.subscriptionRepository = subscriptionRepository;
         this.subscriptionMapper = subscriptionMapper;
+        this.subscriberMapper = subscriberMapper;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             throw new InvalidSubjectException();
         }
 
-        Matcher matcher = groupNamePattern.matcher(subject);
+        Matcher matcher = majorGroupNamePattern.matcher(subject);
         if (!matcher.matches() &&
                 !subject.equals(ALL_GROUP) &&
                 !subject.equals(GENERAL)) {
@@ -63,11 +69,25 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public List<SubscriptionDto> getSubscriptionsBySubject(String subject) {
+    public List<SubscriberDto> findSubscribersForGroup(SearchSubscribersCodeDto searchDto) {
+        List<String> subjects = new ArrayList<>();
+        subjects.add(ALL_GROUP);
+
+        Matcher matcher = fullGroupNamePattern.matcher(searchDto.getGroupId());
+        if (matcher.matches()) {
+            Matcher filterMatcher = filterMinorGroupNamePattern.matcher(searchDto.getGroupId());
+            if (filterMatcher.find()) {
+                subjects.add(filterMatcher.group());
+            }
+        } else {
+            throw new InvalidSubjectException("Invalid group id [" + searchDto.getGroupId() + "]");
+        }
+
         return subscriptionRepository
-                .findAllByPrimaryKey_Subject(subject)
+                .findAllByPrimaryKey_SubjectInAndPrimaryKey_Subscriber_Type(
+                        subjects, searchDto.getSubscriberType())
                 .stream()
-                .map(subscriptionMapper::toDto)
+                .map(subscription -> subscriberMapper.toDto(subscription.getPrimaryKey().getSubscriber()))
                 .toList();
     }
 }

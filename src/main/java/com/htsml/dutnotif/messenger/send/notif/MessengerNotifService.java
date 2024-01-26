@@ -2,6 +2,7 @@ package com.htsml.dutnotif.messenger.send.notif;
 
 
 import com.htsml.dutnotif.messenger.send.notif.dto.SubscribeNotifDto;
+import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
 
 public interface MessengerNotifService {
 
@@ -12,5 +13,5 @@ public interface MessengerNotifService {
 
     void subscribeOneTimeNotif(SubscribeNotifDto subscribeNotifDto);
 
-    void sendOneTimeNotif(String subscriberId);
+    void sendOneTimeNotif(SubscriberDto subscriber, String text);
 }
