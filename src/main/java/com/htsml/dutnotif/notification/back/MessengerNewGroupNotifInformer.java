@@ -1,7 +1,6 @@
 package com.htsml.dutnotif.notification.back;
 
 import com.htsml.dutnotif.messenger.send.chat.MessengerChatService;
-import com.htsml.dutnotif.messenger.send.notif.MessengerNotifService;
 import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
 import com.htsml.dutnotif.notification.group.NewGroupNotificationEvent;
 import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
