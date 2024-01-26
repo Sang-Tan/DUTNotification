@@ -38,3 +38,7 @@ out/
 
 ### Flyway ###
 flyway.conf
+
+### property files ###
+src/main/resources/*.properties
+!src/main/resources/*.example.properties

@@ -1,6 +1,7 @@
 package com.htsml.dutnotif.messenger.hook;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 public class WebhookController {
     private final WebhookService webhookService;
 
-    public WebhookController(WebhookService webhookService) {
+    private final String verifyToken;
+
+    public WebhookController(WebhookService webhookService,
+                             @Value("${messenger.hook.verify-token}") String verifyToken) {
         this.webhookService = webhookService;
+        this.verifyToken = verifyToken;
     }
 
     @PostMapping
@@ -28,7 +33,7 @@ public class WebhookController {
     public ResponseEntity<Object> webhooks(@RequestParam("hub.challenge") String challenge,
                                    @RequestParam("hub.verify_token") String verifyToken,
                                    @RequestParam("hub.mode") String mode) {
-        if (mode.equals("subscribe") && verifyToken.equals("dutnotif")) {
+        if ("subscribe".equals(mode) && this.verifyToken.equals(verifyToken)) {
             log.debug("Received webhook challenge: {}", challenge);
             return ResponseEntity.ok(challenge);
         }
