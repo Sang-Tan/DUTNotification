@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateSubscriptionDto {
-    private Integer subscriberId;
+    private String subscriberCode;
     private String subject;
 }

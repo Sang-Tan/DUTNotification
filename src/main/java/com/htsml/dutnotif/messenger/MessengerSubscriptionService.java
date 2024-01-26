@@ -1,11 +1,12 @@
-package com.htsml.dutnotif.subscribe.subscription;
+package com.htsml.dutnotif.messenger;
 
 import com.htsml.dutnotif.subscribe.subscriber.Subscriber;
 import com.htsml.dutnotif.subscribe.subscriber.SubscriberMapper;
 import com.htsml.dutnotif.subscribe.subscriber.SubscriberService;
+import com.htsml.dutnotif.subscribe.subscriber.dto.CreateSubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
-import com.htsml.dutnotif.subscribe.subscription.dto.CreateSubscriptionDto;
+import com.htsml.dutnotif.subscribe.subscription.*;
 import com.htsml.dutnotif.subscribe.subscription.dto.SearchSubscribersCodeDto;
 import com.htsml.dutnotif.subscribe.subscription.entity.SubscriptionId;
 import org.springframework.stereotype.Service;
@@ -16,30 +17,24 @@ import java.util.regex.Matcher;
 
 import static com.htsml.dutnotif.subscribe.subscription.SubjectNames.*;
 
-@Service
-public class SubscriptionServiceImpl implements SubscriptionService {
+@Service("messengerSubscriptionService")
+public class MessengerSubscriptionService implements SubscriptionService {
     private final SubscriberService subscriberService;
 
     private final SubscriptionRepository subscriptionRepository;
 
-    private final SubscriptionMapper subscriptionMapper;
-
     private final SubscriberMapper subscriberMapper;
 
-    public SubscriptionServiceImpl(SubscriberService subscriberService,
-                                   SubscriptionRepository subscriptionRepository,
-                                   SubscriptionMapper subscriptionMapper,
-                                   SubscriberMapper subscriberMapper) {
+    public MessengerSubscriptionService(SubscriberService subscriberService,
+                                        SubscriptionRepository subscriptionRepository,
+                                        SubscriberMapper subscriberMapper) {
         this.subscriberService = subscriberService;
         this.subscriptionRepository = subscriptionRepository;
-        this.subscriptionMapper = subscriptionMapper;
         this.subscriberMapper = subscriberMapper;
     }
 
     @Override
-    public void subscribe(CreateSubscriptionDto createSubscriptionDto) {
-        String subject = createSubscriptionDto.getSubject();
-
+    public void subscribe(String subscriberCode, String subject) {
         if (subject == null || subject.isEmpty()) {
             throw new InvalidSubjectException();
         }
@@ -51,7 +46,22 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             throw new InvalidSubjectException();
         }
 
-        subscriptionRepository.save(subscriptionMapper.toEntity(createSubscriptionDto));
+        SubscriberDto subscriber = getOrCreateSubscriber(subscriberCode);
+
+        if (subscriptionRepository.existsByPrimaryKey_SubjectAndPrimaryKey_Subscriber_Id(
+                subject, subscriber.getId())) {
+            throw new AlreadySubscribedException();
+        }
+
+        Subscription subscription = new Subscription();
+        subscription.setPrimaryKey(SubscriptionId.builder()
+                .subscriber(Subscriber.builder()
+                        .id(subscriber.getId())
+                        .build())
+                .subject(subject)
+                .build());
+
+        subscriptionRepository.save(subscription);
     }
 
     @Override
@@ -89,5 +99,19 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                 .stream()
                 .map(subscription -> subscriberMapper.toDto(subscription.getPrimaryKey().getSubscriber()))
                 .toList();
+    }
+
+    private SubscriberDto getOrCreateSubscriber(String subscriberCode) {
+        if (!subscriberService.isSubscriberExist(SubscriberTypeEnum.MESSENGER, subscriberCode)) {
+            return subscriberService.createSubscriber(CreateSubscriberDto.builder()
+                    .type(SubscriberTypeEnum.MESSENGER)
+                    .code(subscriberCode)
+                    .build());
+        } else {
+            return subscriberService.getSubscriberByTypeAndCode(
+                    SubscriberTypeEnum.MESSENGER,
+                    subscriberCode
+            );
+        }
     }
 }

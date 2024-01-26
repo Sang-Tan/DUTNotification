@@ -5,7 +5,7 @@ import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
 
 public interface SubscriberService {
-    void createSubscriber(CreateSubscriberDto createSubscriberDto);
+    SubscriberDto createSubscriber(CreateSubscriberDto createSubscriberDto);
 
     SubscriberDto getSubscriberByTypeAndCode(SubscriberTypeEnum type, String code);
 

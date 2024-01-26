@@ -17,9 +17,9 @@ public class SubscriberServiceImpl implements SubscriberService{
     }
 
     @Override
-    public void createSubscriber(CreateSubscriberDto createSubscriberDto) {
+    public SubscriberDto createSubscriber(CreateSubscriberDto createSubscriberDto) {
         Subscriber subscriber = subscriberMapper.toEntity(createSubscriberDto);
-        subscriberRepository.save(subscriber);
+        return  subscriberMapper.toDto(subscriberRepository.save(subscriber));
     }
 
     @Override
