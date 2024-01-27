@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17-jdk as builder
 RUN apt update && apt install -y dos2unix
 
 WORKDIR /app
@@ -9,8 +9,13 @@ COPY gradlew ./
 RUN chmod +x ./gradlew
 COPY build.gradle ./
 RUN dos2unix ./gradlew
-RUN ./gradlew --refresh-dependencies
 
 COPY src ./src
+RUN ./gradlew --refresh-dependencies clean bootJar
 
-CMD ["./gradlew", "bootRun"]
+FROM eclipse-temurin:17-jre
+
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar ./app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
