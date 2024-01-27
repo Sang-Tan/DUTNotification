@@ -12,6 +12,7 @@ import com.htsml.dutnotif.subscribe.subscription.entity.SubscriptionId;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -39,10 +40,7 @@ public class MessengerSubscriptionService implements SubscriptionService {
             throw new InvalidSubjectException();
         }
 
-        Matcher matcher = majorGroupNamePattern.matcher(subject);
-        if (!matcher.matches() &&
-                !subject.equals(ALL_GROUP) &&
-                !subject.equals(GENERAL)) {
+        if (!isSubjectValid(subject)) {
             throw new InvalidSubjectException();
         }
 
@@ -71,11 +69,23 @@ public class MessengerSubscriptionService implements SubscriptionService {
                 subscriberCode
         );
 
-        subscriptionRepository.deleteByPrimaryKey(
-                SubscriptionId.builder()
-                .subscriber(Subscriber.builder().id(subscriber.getId()).build())
-                .subject(subject)
-                .build());
+        if (!isSubjectValid(subject)) {
+            throw new InvalidSubjectException();
+        }
+
+        if (GENERAL.equals(subject)){
+            subscriptionRepository.deleteByPrimaryKey_Subscriber_IdAndPrimaryKeySubjectIn(
+                    subscriber.getId(), List.of(GENERAL));
+        } else {
+            List<String> subjects = Arrays.asList(ALL_GROUP);
+            Matcher matcher = majorGroupNamePattern.matcher(subject);
+            if (matcher.matches()) {
+                subjects.add(subject);
+            }
+
+            subscriptionRepository.deleteByPrimaryKey_Subscriber_IdAndPrimaryKeySubjectIn(
+                    subscriber.getId(), subjects);
+        }
     }
 
     @Override
@@ -99,6 +109,13 @@ public class MessengerSubscriptionService implements SubscriptionService {
                 .stream()
                 .map(subscription -> subscriberMapper.toDto(subscription.getPrimaryKey().getSubscriber()))
                 .toList();
+    }
+
+    private boolean isSubjectValid(String subject) {
+        Matcher matcher = majorGroupNamePattern.matcher(subject);
+        return matcher.matches() ||
+                subject.equals(ALL_GROUP) ||
+                subject.equals(GENERAL);
     }
 
     private SubscriberDto getOrCreateSubscriber(String subscriberCode) {

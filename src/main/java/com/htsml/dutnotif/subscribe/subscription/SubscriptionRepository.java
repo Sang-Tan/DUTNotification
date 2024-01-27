@@ -11,6 +11,8 @@ import java.util.List;
 public interface SubscriptionRepository extends JpaRepository<Subscription, SubscriptionId> {
     void deleteByPrimaryKey(SubscriptionId primaryKey);
 
+    void deleteByPrimaryKey_Subscriber_IdAndPrimaryKeySubjectIn(Integer subscriberId, List<String> subjects);
+
     List<Subscription> findAllByPrimaryKey_Subject(String subject);
 
     List<Subscription> findAllByPrimaryKey_SubjectInAndPrimaryKey_Subscriber_Type(List<String> subjects, SubscriberTypeEnum type);

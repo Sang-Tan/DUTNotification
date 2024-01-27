@@ -13,6 +13,9 @@ public interface SubscriptionService {
      */
     void subscribe(String subscriberCode, String subject);
 
+    /**
+     * @throws InvalidSubjectException if subject is not valid
+     */
     void unsubscribe(String subscriberCode, String subject);
 
     List<SubscriberDto> findSubscribersForGroup(SearchSubscribersCodeDto searchDto);
