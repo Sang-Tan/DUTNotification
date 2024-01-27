@@ -3,10 +3,11 @@ RUN apt update && apt install -y dos2unix
 
 WORKDIR /app
 
+COPY gradle ./gradle
 COPY settings.gradle ./
 COPY gradlew ./
+RUN chmod +x ./gradlew
 COPY build.gradle ./
-COPY gradle ./gradle
 RUN dos2unix ./gradlew
 RUN ./gradlew --refresh-dependencies
 
