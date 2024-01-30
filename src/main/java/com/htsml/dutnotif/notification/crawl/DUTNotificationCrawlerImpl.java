@@ -12,13 +12,46 @@ import java.util.List;
 
 @Component
 public class DUTNotificationCrawlerImpl implements DUTNotificationCrawler{
+    private final DUTNotificationMapper notificationMapper;
+
+    public DUTNotificationCrawlerImpl(DUTNotificationMapper notificationMapper) {
+        this.notificationMapper = notificationMapper;
+    }
+
     @Override
     public List<GroupNotificationDto> getGroupNotifications(int page) {
         if (page < 1) throw new IllegalArgumentException("Page must be greater than 0");
 
         String url = String.format("http://sv.dut.udn.vn/WebAjax/evLopHP_Load.aspx?E=CTRTBGV&PAGETB=%d&COL=TieuDe&NAME=&TAB=1", page);
-        Document document = getDocument(url);
 
+        return crawlNotification(url)
+                .stream()
+                .map(notification -> {
+                    GroupNotificationDto groupNotificationDto =
+                            notificationMapper.toGroupNotificationDto(notification);
+                    String title = notification.getTitle();
+                    groupNotificationDto
+                            .setGroup(title.substring(title.indexOf("[") + 1, title.indexOf("]")));
+
+                    return groupNotificationDto;
+                })
+                .toList();
+    }
+
+    @Override
+    public List<GeneralNotificationDto> getGeneralNotifications(int page) {
+        if (page < 1) throw new IllegalArgumentException("Page must be greater than 0");
+
+        String url = String.format("http://sv.dut.udn.vn/WebAjax/evLopHP_Load.aspx?E=CTRTBSV&PAGETB=%d&COL=TieuDe&NAME=&TAB=0", page);
+
+        return crawlNotification(url)
+                .stream()
+                .map(notificationMapper::toGeneralNotificationDto)
+                .toList();
+    }
+
+    private List<DUTNotificationDto> crawlNotification(String url){
+        Document document = getDocument(url);
         var tbBoxes = document.getElementsByClass("tbBox");
         return tbBoxes.stream().map(tbBox -> {
             var tbBoxCaption = tbBox.child(0);
@@ -26,12 +59,12 @@ public class DUTNotificationCrawlerImpl implements DUTNotificationCrawler{
             var dateText = tbBoxCaption.child(0).child(0).text();
             var title = tbBoxCaption.child(1).text();
 
-            return GroupNotificationDto.builder()
-                    .date(getVietnameseDate(dateText.substring(0, dateText.length() - 1)))
-                    .title(title)
-                    .content(tbBoxContent.text())
-                    .group(title.substring(title.indexOf("[") + 1, title.indexOf("]")))
-                    .build();
+            DUTNotificationDto notificationDto = new DUTNotificationDto();
+            notificationDto.setDate(getVietnameseDate(dateText.substring(0, dateText.length() - 1)));
+            notificationDto.setTitle(title);
+            notificationDto.setContent(tbBoxContent.text());
+
+            return notificationDto;
         }).toList();
     }
 
