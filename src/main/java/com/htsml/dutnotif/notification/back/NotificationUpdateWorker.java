@@ -1,7 +1,9 @@
 package com.htsml.dutnotif.notification.back;
 
 import com.htsml.dutnotif.notification.crawl.DUTNotificationCrawler;
+import com.htsml.dutnotif.notification.crawl.GeneralNotificationDto;
 import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
+import com.htsml.dutnotif.notification.general.GeneralNotificationService;
 import com.htsml.dutnotif.notification.group.GroupNotificationService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,10 +19,14 @@ public class NotificationUpdateWorker {
 
     private final GroupNotificationService groupNotificationService;
 
+    private final GeneralNotificationService generalNotificationService;
+
     public NotificationUpdateWorker(DUTNotificationCrawler dutNotificationCrawler,
-                                    GroupNotificationService groupNotificationService) {
+                                    GroupNotificationService groupNotificationService,
+                                    GeneralNotificationService generalNotificationService) {
         this.dutNotificationCrawler = dutNotificationCrawler;
         this.groupNotificationService = groupNotificationService;
+        this.generalNotificationService = generalNotificationService;
     }
 
     @Scheduled(fixedRateString = "${notification.group.update.interval-min}",timeUnit = TimeUnit.MINUTES)
@@ -34,5 +40,12 @@ public class NotificationUpdateWorker {
             log.error("Error while updating group notifications", e);
         }
 
+        try {
+            List<GeneralNotificationDto> notificationDtos =
+                    dutNotificationCrawler.getGeneralNotifications(1);
+            generalNotificationService.addNotifications(notificationDtos);
+        } catch (Exception e) {
+            log.error("Error while updating general notifications", e);
+        }
     }
 }

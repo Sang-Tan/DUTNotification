@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public interface SubscriptionRepository extends JpaRepository<Subscription, SubscriptionId> {
+
+    @Transactional
     void deleteByPrimaryKey(SubscriptionId primaryKey);
 
+    @Transactional
     void deleteByPrimaryKey_Subscriber_IdAndPrimaryKeySubjectIn(Integer subscriberId, List<String> subjects);
 
     List<Subscription> findAllByPrimaryKey_Subject(String subject);

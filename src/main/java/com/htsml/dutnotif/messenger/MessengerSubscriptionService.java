@@ -10,6 +10,7 @@ import com.htsml.dutnotif.subscribe.subscription.*;
 import com.htsml.dutnotif.subscribe.subscription.dto.SearchSubscribersCodeDto;
 import com.htsml.dutnotif.subscribe.subscription.entity.SubscriptionId;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,6 +107,16 @@ public class MessengerSubscriptionService implements SubscriptionService {
         return subscriptionRepository
                 .findAllByPrimaryKey_SubjectInAndPrimaryKey_Subscriber_Type(
                         subjects, searchDto.getSubscriberType())
+                .stream()
+                .map(subscription -> subscriberMapper.toDto(subscription.getPrimaryKey().getSubscriber()))
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<SubscriberDto> getGeneralSubscribers() {
+        return subscriptionRepository
+                .findAllByPrimaryKey_Subject(GENERAL)
                 .stream()
                 .map(subscription -> subscriberMapper.toDto(subscription.getPrimaryKey().getSubscriber()))
                 .toList();
