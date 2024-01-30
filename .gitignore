@@ -37,7 +37,7 @@ out/
 .vscode/
 
 ### Flyway ###
-flyway.conf
+flyway*.conf
 
 ### property files ###
 src/main/resources/*.properties

@@ -1,7 +1,6 @@
 package com.htsml.dutnotif.notification.crawl;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
@@ -9,6 +8,10 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupNotificationDto extends DUTNotificationDto{
-    private String group;
+public class DUTNotificationDto {
+    private Date date;
+
+    private String title;
+
+    private String content;
 }
