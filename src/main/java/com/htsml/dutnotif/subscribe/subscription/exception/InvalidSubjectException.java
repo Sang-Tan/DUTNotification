@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.subscribe.subscription;
+package com.htsml.dutnotif.subscribe.subscription.exception;
 
 public class InvalidSubjectException extends RuntimeException{
 

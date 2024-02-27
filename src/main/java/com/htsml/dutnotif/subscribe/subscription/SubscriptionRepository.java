@@ -19,6 +19,10 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Subs
 
     List<Subscription> findAllByPrimaryKey_Subject(String subject);
 
+    List<Subscription> findAllByPrimaryKey_SubjectAndPrimaryKey_Subscriber_Type(String subject, SubscriberTypeEnum type);
+
+    List<Subscription> findAllByPrimaryKey_SubjectIn(List<String> subjects);
+
     List<Subscription> findAllByPrimaryKey_SubjectInAndPrimaryKey_Subscriber_Type(List<String> subjects, SubscriberTypeEnum type);
 
     boolean existsByPrimaryKey_SubjectAndPrimaryKey_Subscriber_Id(String subject, Integer subscriberId);

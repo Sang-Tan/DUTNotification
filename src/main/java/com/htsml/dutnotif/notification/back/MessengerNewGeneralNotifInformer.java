@@ -1,9 +1,10 @@
 package com.htsml.dutnotif.notification.back;
 
+import com.htsml.dutnotif.messenger.MessengerSubscriptionService;
 import com.htsml.dutnotif.messenger.send.chat.MessengerChatService;
 import com.htsml.dutnotif.notification.crawl.GeneralNotificationDto;
 import com.htsml.dutnotif.notification.general.NewGeneralNotificationEvent;
-import com.htsml.dutnotif.subscribe.subscription.SubscriptionService;
+import com.htsml.dutnotif.subscribe.subscription.SubjectNames;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +13,10 @@ public class MessengerNewGeneralNotifInformer implements ApplicationListener<New
 
     private final MessengerChatService messengerChatService;
 
-    private final SubscriptionService subscriptionService;
+    private final MessengerSubscriptionService subscriptionService;
 
     public MessengerNewGeneralNotifInformer(MessengerChatService messengerChatService,
-                                            SubscriptionService subscriptionService) {
+                                            MessengerSubscriptionService subscriptionService) {
         this.messengerChatService = messengerChatService;
         this.subscriptionService = subscriptionService;
     }
@@ -26,7 +27,7 @@ public class MessengerNewGeneralNotifInformer implements ApplicationListener<New
 
         String content = notificationDto.getTitle() + "\n" + notificationDto.getContent();
 
-        subscriptionService.getGeneralSubscribers().forEach(subscriber ->
+        subscriptionService.findSubscribersForSubject(SubjectNames.GENERAL).forEach(subscriber ->
                 messengerChatService.sendMessage(subscriber.getCode(), content));
     }
 }

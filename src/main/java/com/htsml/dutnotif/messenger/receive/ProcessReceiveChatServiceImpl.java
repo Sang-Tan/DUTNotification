@@ -2,16 +2,15 @@ package com.htsml.dutnotif.messenger.receive;
 
 import com.htsml.dutnotif.messenger.MessengerSubscriptionService;
 import com.htsml.dutnotif.messenger.send.chat.MessengerChatService;
-import com.htsml.dutnotif.subscribe.subscription.AlreadySubscribedException;
-import com.htsml.dutnotif.subscribe.subscription.InvalidSubjectException;
-import com.htsml.dutnotif.subscribe.subscription.SubscriptionService;
+import com.htsml.dutnotif.subscribe.subscription.exception.AlreadySubscribedException;
+import com.htsml.dutnotif.subscribe.subscription.exception.InvalidSubjectException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProcessReceiveChatServiceImpl implements ProcessReceiveChatService {
     private final MessengerChatService chatService;
 
-    private final SubscriptionService subscriptionService;
+    private final MessengerSubscriptionService subscriptionService;
 
     public ProcessReceiveChatServiceImpl(MessengerChatService messengerChatService,
                                          MessengerSubscriptionService subscriptionService) {
