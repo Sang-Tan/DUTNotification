@@ -44,7 +44,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             throw new InvalidSubjectException();
         }
 
-        if (subscriberRepository.existsById(subscriberId)) {
+        if (!subscriberRepository.existsById(subscriberId)) {
             throw new SubscriberNotExistException();
         }
 
