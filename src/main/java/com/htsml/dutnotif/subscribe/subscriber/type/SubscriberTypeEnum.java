@@ -1,16 +1,17 @@
 package com.htsml.dutnotif.subscribe.subscriber.type;
 
+import lombok.Getter;
+
+@Getter
 public enum SubscriberTypeEnum {
-    MESSENGER("messenger");
+    MESSENGER("messenger"),
+
+    DISCORD("discord");
 
     private final String type;
 
     SubscriberTypeEnum(String type) {
         this.type = type;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public static SubscriberTypeEnum of(String value) {
