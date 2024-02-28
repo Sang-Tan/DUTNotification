@@ -1,5 +1,6 @@
 package com.htsml.dutnotif.subscribe.subscriber.type;
 
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
