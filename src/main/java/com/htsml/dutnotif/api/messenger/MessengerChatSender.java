@@ -1,6 +1,6 @@
-package com.htsml.dutnotif.messenger.send.chat;
+package com.htsml.dutnotif.api.messenger;
 
-public interface MessengerChatService {
+public interface MessengerChatSender {
     void sendMessage(String subject, String message);
 
     void sendEventMessage(String subject, String message);

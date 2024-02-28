@@ -1,18 +1,18 @@
-package com.htsml.dutnotif.discord.api.channel;
+package com.htsml.dutnotif.api.discord;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.htsml.dutnotif.discord.api.core.DiscordApiSender;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
-public class DiscordChannelMessageServiceImpl implements DiscordChannelMessageService {
+@Component
+public class DiscordChannelMessageSenderImpl implements DiscordChannelMessageSender {
     private final DiscordApiSender discordApiSender;
 
     private final ObjectMapper objectMapper;
 
-    public DiscordChannelMessageServiceImpl(DiscordApiSender discordApiSender,
-                                            ObjectMapper objectMapper) {
+    public DiscordChannelMessageSenderImpl(DiscordApiSender discordApiSender,
+                                           ObjectMapper objectMapper) {
         this.discordApiSender = discordApiSender;
         this.objectMapper = objectMapper;
     }

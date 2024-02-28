@@ -1,21 +1,20 @@
-package com.htsml.dutnotif.messenger.send.chat;
+package com.htsml.dutnotif.api.messenger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.htsml.dutnotif.messenger.send.MessengerSendApi;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service
-public class MessengerChatServiceImpl implements MessengerChatService {
+public class MessengerChatSenderImpl implements MessengerChatSender {
 
     private final MessengerSendApi messengerSendApi;
 
     private final ObjectMapper objectMapper;
 
-    public MessengerChatServiceImpl(MessengerSendApi messengerSendApi,
-                                    ObjectMapper objectMapper) {
+    public MessengerChatSenderImpl(MessengerSendApi messengerSendApi,
+                                   ObjectMapper objectMapper) {
         this.messengerSendApi = messengerSendApi;
         this.objectMapper = objectMapper;
     }

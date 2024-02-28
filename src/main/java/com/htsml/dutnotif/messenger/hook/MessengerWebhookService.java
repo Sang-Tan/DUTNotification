@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.htsml.dutnotif.messenger.receive.ProcessReceiveChatService;
-import com.htsml.dutnotif.messenger.send.chat.MessengerChatService;
+import com.htsml.dutnotif.api.messenger.MessengerChatSender;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.AsyncTaskExecutor;
@@ -18,18 +18,18 @@ import org.springframework.stereotype.Service;
 public class MessengerWebhookService implements WebhookService {
     private final ObjectMapper objectMapper;
 
-    private final MessengerChatService sendMessageService;
+    private final MessengerChatSender sendMessageService;
 
     private final TaskExecutor taskExecutor;
 
     private final ProcessReceiveChatService processReceiveChatService;
 
     public MessengerWebhookService(ObjectMapper objectMapper,
-                                   MessengerChatService messengerChatService,
+                                   MessengerChatSender messengerChatSender,
                                    @Qualifier("applicationTaskExecutor") AsyncTaskExecutor taskExecutor,
                                    ProcessReceiveChatService processReceiveChatService) {
         this.objectMapper = objectMapper;
-        this.sendMessageService = messengerChatService;
+        this.sendMessageService = messengerChatSender;
         this.taskExecutor = taskExecutor;
         this.processReceiveChatService = processReceiveChatService;
     }

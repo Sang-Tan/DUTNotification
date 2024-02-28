@@ -2,8 +2,8 @@ package com.htsml.dutnotif.task.discord;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.htsml.dutnotif.discord.api.core.DiscordApiSender;
-import com.htsml.dutnotif.discord.api.core.DiscordApiSenderImpl;
+import com.htsml.dutnotif.api.discord.DiscordApiSender;
+import com.htsml.dutnotif.api.discord.DiscordApiSenderImpl;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.messenger.send;
+package com.htsml.dutnotif.api.messenger;
 
 public interface MessengerSendApi {
     void sendMessage(String body);

@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.discord.api.core;
+package com.htsml.dutnotif.api.discord;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
