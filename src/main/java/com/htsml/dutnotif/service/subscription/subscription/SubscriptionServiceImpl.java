@@ -1,20 +1,19 @@
 package com.htsml.dutnotif.service.subscription.subscription;
 
 import com.htsml.dutnotif.repository.subscriber.Subscriber;
+import com.htsml.dutnotif.repository.subscriber.SubscriberRepository;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import com.htsml.dutnotif.repository.subscription.Subscription;
+import com.htsml.dutnotif.repository.subscription.SubscriptionId;
 import com.htsml.dutnotif.repository.subscription.SubscriptionRepository;
 import com.htsml.dutnotif.service.subscription.subscriber.SubscriberMapper;
-import com.htsml.dutnotif.repository.subscriber.SubscriberRepository;
 import com.htsml.dutnotif.service.subscription.subscriber.dto.SubscriberDto;
-import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
-import com.htsml.dutnotif.repository.subscription.SubscriptionId;
 import com.htsml.dutnotif.service.subscription.subscription.exception.AlreadySubscribedException;
 import com.htsml.dutnotif.service.subscription.subscription.exception.InvalidSubjectException;
 import com.htsml.dutnotif.service.subscription.subscription.exception.SubscriberNotExistException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -80,7 +79,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             subscriptionRepository.deleteByPrimaryKey_Subscriber_IdAndPrimaryKeySubjectIn(
                     subscriber.getId(), List.of(GENERAL));
         } else {
-            List<String> subjects = Arrays.asList(ALL_GROUP);
+            List<String> subjects = new ArrayList<>();
+            subjects.add(ALL_GROUP);
             Matcher matcher = majorGroupNamePattern.matcher(subject);
             if (matcher.matches()) {
                 subjects.add(subject);
