@@ -1,6 +1,8 @@
 package com.htsml.dutnotif.notification.general;
 
 import com.htsml.dutnotif.notification.crawl.GeneralNotificationDto;
+import com.htsml.dutnotif.repository.notification.general.GeneralNotification;
+import com.htsml.dutnotif.repository.notification.general.GeneralNotificationRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 

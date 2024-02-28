@@ -1,6 +1,6 @@
 package com.htsml.dutnotif.subscribe.subscription.dto;
 
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import lombok.*;
 
 @Getter

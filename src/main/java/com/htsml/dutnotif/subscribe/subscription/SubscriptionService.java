@@ -1,7 +1,7 @@
 package com.htsml.dutnotif.subscribe.subscription;
 
 import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import com.htsml.dutnotif.subscribe.subscription.exception.AlreadySubscribedException;
 import com.htsml.dutnotif.subscribe.subscription.exception.InvalidSubjectException;
 import com.htsml.dutnotif.subscribe.subscription.exception.SubscriberNotExistException;

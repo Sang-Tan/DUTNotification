@@ -3,7 +3,7 @@ package com.htsml.dutnotif.discord.subscribe;
 import com.htsml.dutnotif.subscribe.subscriber.SubscriberService;
 import com.htsml.dutnotif.subscribe.subscriber.dto.CreateSubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import com.htsml.dutnotif.subscribe.subscription.SubscriberTypeAwareSubscriptionService;
 import com.htsml.dutnotif.subscribe.subscription.SubscriptionService;
 import org.springframework.beans.factory.annotation.Qualifier;

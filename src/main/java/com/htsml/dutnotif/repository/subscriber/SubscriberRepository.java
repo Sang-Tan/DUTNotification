@@ -1,6 +1,6 @@
-package com.htsml.dutnotif.subscribe.subscriber;
+package com.htsml.dutnotif.repository.subscriber;
 
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,10 @@
 package com.htsml.dutnotif.subscribe.subscriber;
 
+import com.htsml.dutnotif.repository.subscriber.Subscriber;
+import com.htsml.dutnotif.repository.subscriber.SubscriberRepository;
 import com.htsml.dutnotif.subscribe.subscriber.dto.CreateSubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.subscribe.subscriber.type;
+package com.htsml.dutnotif.repository.subscriber.type;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

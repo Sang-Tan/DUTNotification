@@ -1,6 +1,5 @@
-package com.htsml.dutnotif.subscribe.subscription;
+package com.htsml.dutnotif.repository.subscription;
 
-import com.htsml.dutnotif.subscribe.subscription.entity.SubscriptionId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

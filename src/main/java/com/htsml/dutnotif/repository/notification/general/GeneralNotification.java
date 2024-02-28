@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.notification.general;
+package com.htsml.dutnotif.repository.notification.general;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.htsml.dutnotif.subscribe.subscription.entity;
+package com.htsml.dutnotif.repository.subscription;
 
-import com.htsml.dutnotif.subscribe.subscriber.Subscriber;
+import com.htsml.dutnotif.repository.subscriber.Subscriber;
 import jakarta.persistence.*;
 import lombok.*;
 

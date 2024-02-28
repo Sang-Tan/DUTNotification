@@ -1,7 +1,7 @@
-package com.htsml.dutnotif.subscribe.subscriber;
+package com.htsml.dutnotif.repository.subscriber;
 
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnumConverter;
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnumConverter;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

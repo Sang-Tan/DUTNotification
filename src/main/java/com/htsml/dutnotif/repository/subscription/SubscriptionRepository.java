@@ -1,7 +1,6 @@
-package com.htsml.dutnotif.subscribe.subscription;
+package com.htsml.dutnotif.repository.subscription;
 
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
-import com.htsml.dutnotif.subscribe.subscription.entity.SubscriptionId;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

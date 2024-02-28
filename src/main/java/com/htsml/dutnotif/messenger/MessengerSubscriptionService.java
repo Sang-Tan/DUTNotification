@@ -3,7 +3,7 @@ package com.htsml.dutnotif.messenger;
 import com.htsml.dutnotif.subscribe.subscriber.SubscriberService;
 import com.htsml.dutnotif.subscribe.subscriber.dto.CreateSubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 import com.htsml.dutnotif.subscribe.subscription.SubscriberTypeAwareSubscriptionService;
 import com.htsml.dutnotif.subscribe.subscription.SubscriptionService;
 import org.springframework.stereotype.Service;

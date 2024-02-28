@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.notification.general;
+package com.htsml.dutnotif.repository.notification.general;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

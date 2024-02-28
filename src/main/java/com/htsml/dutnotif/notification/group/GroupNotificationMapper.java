@@ -1,6 +1,7 @@
 package com.htsml.dutnotif.notification.group;
 
 import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
+import com.htsml.dutnotif.repository.notification.group.GroupNotification;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

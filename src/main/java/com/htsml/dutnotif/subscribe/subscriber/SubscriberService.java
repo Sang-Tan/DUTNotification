@@ -2,7 +2,7 @@ package com.htsml.dutnotif.subscribe.subscriber;
 
 import com.htsml.dutnotif.subscribe.subscriber.dto.CreateSubscriberDto;
 import com.htsml.dutnotif.subscribe.subscriber.dto.SubscriberDto;
-import com.htsml.dutnotif.subscribe.subscriber.type.SubscriberTypeEnum;
+import com.htsml.dutnotif.repository.subscriber.type.SubscriberTypeEnum;
 
 public interface SubscriberService {
     SubscriberDto createSubscriber(CreateSubscriberDto createSubscriberDto);

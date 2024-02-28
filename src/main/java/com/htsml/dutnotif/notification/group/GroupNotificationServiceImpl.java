@@ -1,6 +1,8 @@
 package com.htsml.dutnotif.notification.group;
 
 import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
+import com.htsml.dutnotif.repository.notification.group.GroupNotification;
+import com.htsml.dutnotif.repository.notification.group.GroupNotificationRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
