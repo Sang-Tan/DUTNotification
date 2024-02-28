@@ -8,6 +8,8 @@ import com.htsml.dutnotif.service.subscription.subscription.exception.AlreadySub
 import com.htsml.dutnotif.service.subscription.subscription.exception.InvalidSubjectException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class DiscordSubscriptionCommandHandlerImpl implements DiscordSubscriptionCommandHandler {
     private final DiscordSubscriptionService subscriptionService;
@@ -41,6 +43,20 @@ public class DiscordSubscriptionCommandHandlerImpl implements DiscordSubscriptio
             response.setContent("Unsubscribed from " + subject);
         } catch (InvalidSubjectException e) {
             response.setContent("Invalid subject: " + subject);
+        }
+
+        return response;
+    }
+
+    @Override
+    public InteractionResponseDto handleListCommand(String channelId) {
+        InteractionResponseDto response = new InteractionResponseDto();
+        List<String> subjects = subscriptionService.getSubscribedSubjects(channelId);
+        if (subjects.isEmpty()) {
+            response.setContent("You are not subscribed to any subjects");
+        } else {
+            String subjectList = String.join(", ", subscriptionService.getSubscribedSubjects(channelId));
+            response.setContent("Subscribed subjects: " + subjectList);
         }
 
         return response;

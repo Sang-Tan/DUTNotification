@@ -47,6 +47,7 @@ public class DiscordInteractionHandlerImpl implements DiscordInteractionHandler 
         return switch (commandName) {
             case DiscordCommandNames.SUBSCRIBE -> handleSubscribeCommand(interaction);
             case DiscordCommandNames.UNSUBSCRIBE -> handleUnsubscribeCommand(interaction);
+            case DiscordCommandNames.SUBSCRIPTION_LIST -> handleListCommand(interaction);
             default -> throw new RuntimeException("Command not supported: " + commandName);
         };
     }
@@ -63,6 +64,11 @@ public class DiscordInteractionHandlerImpl implements DiscordInteractionHandler 
         String channelId = interaction.get("channel_id").asText();
 
         return discordSubscriptionCommandHandler.handleUnsubscribeCommand(channelId, dataNode);
+    }
+
+    private InteractionResponseDto handleListCommand(ObjectNode interaction) {
+        String channelId = interaction.get("channel_id").asText();
+        return discordSubscriptionCommandHandler.handleListCommand(channelId);
     }
 
     private ObjectNode getInteractionNode(String interaction) {

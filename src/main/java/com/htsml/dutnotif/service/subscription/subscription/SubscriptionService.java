@@ -22,4 +22,6 @@ public interface SubscriptionService {
     void unsubscribe(Integer subscriberId, String subject);
 
     List<SubscriberDto> findSubscribersForSubject(String subject, SubscriberTypeEnum subscriberType);
+
+    List<String> getSubscribedSubjects(Integer subscriberId);
 }

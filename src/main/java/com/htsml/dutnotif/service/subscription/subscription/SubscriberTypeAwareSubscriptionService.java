@@ -19,4 +19,6 @@ public interface SubscriberTypeAwareSubscriptionService {
     void unsubscribe(String subscriberCode, String subject);
 
     List<SubscriberDto> findSubscribersForSubject(String subject);
+
+    List<String> getSubscribedSubjects(String subscriberCode);
 }

@@ -104,6 +104,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
     }
 
+    @Override
+    public List<String> getSubscribedSubjects(Integer subscriberId) {
+        return subscriptionRepository
+                .findAllByPrimaryKey_Subscriber_Id(subscriberId)
+                .stream()
+                .map(Subscription::getPrimaryKey)
+                .map(SubscriptionId::getSubject)
+                .toList();
+    }
+
     private List<SubscriberDto> getGroupSubscribers(String groupName, SubscriberTypeEnum subscriberType) {
         List<String> subjects = new ArrayList<>();
         subjects.add(ALL_GROUP);

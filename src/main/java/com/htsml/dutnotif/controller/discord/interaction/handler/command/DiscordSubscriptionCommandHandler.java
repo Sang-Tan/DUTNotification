@@ -8,4 +8,5 @@ import org.springframework.stereotype.Component;
 public interface DiscordSubscriptionCommandHandler {
     InteractionResponseDto handleSubscribeCommand(String channelId, ObjectNode dataNode);
     InteractionResponseDto handleUnsubscribeCommand(String channelId, ObjectNode dataNode);
+    InteractionResponseDto handleListCommand(String channelId);
 }

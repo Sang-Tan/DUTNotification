@@ -49,6 +49,11 @@
           ]
         }
       ]
+    },
+    {
+      "name": "subscription-list",
+      "type": 1,
+      "description": "Get subscription list"
     }
   ]
 }

@@ -40,6 +40,13 @@ public abstract class AbstractSubscriberTypeAwareSubscriptionService implements 
         return subscriptionService.findSubscribersForSubject(subject, subscriberType);
     }
 
+    @Override
+    public List<String> getSubscribedSubjects(String subscriberCode) {
+        int subscriberId = subscriberService.getSubscriberByTypeAndCode(
+                subscriberType, subscriberCode).getId();
+        return subscriptionService.getSubscribedSubjects(subscriberId);
+    }
+
     private SubscriberDto getOrCreateSubscriber(String subscriberCode) {
         if (!subscriberService.isSubscriberExist(subscriberType, subscriberCode)) {
             return subscriberService.createSubscriber(CreateSubscriberDto.builder()

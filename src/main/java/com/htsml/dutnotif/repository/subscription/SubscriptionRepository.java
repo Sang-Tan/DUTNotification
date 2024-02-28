@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -25,4 +26,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Subs
     List<Subscription> findAllByPrimaryKey_SubjectInAndPrimaryKey_Subscriber_Type(List<String> subjects, SubscriberTypeEnum type);
 
     boolean existsByPrimaryKey_SubjectAndPrimaryKey_Subscriber_Id(String subject, Integer subscriberId);
+
+    List<Subscription> findAllByPrimaryKey_Subscriber_Id(Integer subscriberId);
 }
