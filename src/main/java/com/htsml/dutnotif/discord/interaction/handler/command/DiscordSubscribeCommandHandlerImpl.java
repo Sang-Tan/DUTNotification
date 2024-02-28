@@ -3,9 +3,9 @@ package com.htsml.dutnotif.discord.interaction.handler.command;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.htsml.dutnotif.discord.command.constant.DiscordCommandOptions;
 import com.htsml.dutnotif.discord.interaction.handler.dto.InteractionResponseDto;
-import com.htsml.dutnotif.discord.subscribe.DiscordSubscriptionService;
-import com.htsml.dutnotif.subscribe.subscription.exception.AlreadySubscribedException;
-import com.htsml.dutnotif.subscribe.subscription.exception.InvalidSubjectException;
+import com.htsml.dutnotif.service.discord.DiscordSubscriptionService;
+import com.htsml.dutnotif.service.subscription.subscription.exception.AlreadySubscribedException;
+import com.htsml.dutnotif.service.subscription.subscription.exception.InvalidSubjectException;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,9 +1,9 @@
 package com.htsml.dutnotif.messenger.receive;
 
-import com.htsml.dutnotif.messenger.MessengerSubscriptionService;
+import com.htsml.dutnotif.service.messenger.MessengerSubscriptionService;
 import com.htsml.dutnotif.api.messenger.MessengerChatSender;
-import com.htsml.dutnotif.subscribe.subscription.exception.AlreadySubscribedException;
-import com.htsml.dutnotif.subscribe.subscription.exception.InvalidSubjectException;
+import com.htsml.dutnotif.service.subscription.subscription.exception.AlreadySubscribedException;
+import com.htsml.dutnotif.service.subscription.subscription.exception.InvalidSubjectException;
 import org.springframework.stereotype.Service;
 
 @Service
