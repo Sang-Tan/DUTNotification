@@ -1,8 +1,8 @@
-package com.htsml.dutnotif.notification.back;
+package com.htsml.dutnotif.back.notification.messenger;
 
 import com.htsml.dutnotif.service.messenger.MessengerSubscriptionService;
 import com.htsml.dutnotif.api.messenger.MessengerChatSender;
-import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
+import com.htsml.dutnotif.crawl.notification.GroupNotificationDto;
 import com.htsml.dutnotif.service.notification.group.NewGroupNotificationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;

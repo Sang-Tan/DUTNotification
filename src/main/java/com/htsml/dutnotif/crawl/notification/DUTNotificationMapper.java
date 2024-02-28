@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.notification.crawl;
+package com.htsml.dutnotif.crawl.notification;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,6 +1,6 @@
 package com.htsml.dutnotif.service.notification.group;
 
-import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
+import com.htsml.dutnotif.crawl.notification.GroupNotificationDto;
 
 import java.util.List;
 

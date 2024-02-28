@@ -1,9 +1,6 @@
-package com.htsml.dutnotif.notification.crawl;
+package com.htsml.dutnotif.crawl.notification;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-
-import java.util.Date;
 
 @Getter
 @Setter

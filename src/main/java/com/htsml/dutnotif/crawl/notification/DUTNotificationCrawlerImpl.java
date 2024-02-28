@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.notification.crawl;
+package com.htsml.dutnotif.crawl.notification;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

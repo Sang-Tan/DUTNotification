@@ -1,8 +1,8 @@
-package com.htsml.dutnotif.notification.back;
+package com.htsml.dutnotif.back.notification.messenger;
 
 import com.htsml.dutnotif.service.messenger.MessengerSubscriptionService;
 import com.htsml.dutnotif.api.messenger.MessengerChatSender;
-import com.htsml.dutnotif.notification.crawl.GeneralNotificationDto;
+import com.htsml.dutnotif.crawl.notification.GeneralNotificationDto;
 import com.htsml.dutnotif.service.notification.general.NewGeneralNotificationEvent;
 import com.htsml.dutnotif.service.subscription.subscription.SubjectNames;
 import org.springframework.context.ApplicationListener;

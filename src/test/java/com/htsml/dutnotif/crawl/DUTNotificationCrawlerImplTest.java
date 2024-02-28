@@ -1,10 +1,11 @@
 package com.htsml.dutnotif.crawl;
 
+import com.htsml.dutnotif.crawl.notification.DUTNotificationCrawlerImpl;
+import com.htsml.dutnotif.crawl.notification.GeneralNotificationDto;
+import com.htsml.dutnotif.crawl.notification.GroupNotificationDto;
 import com.htsml.dutnotif.notification.crawl.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

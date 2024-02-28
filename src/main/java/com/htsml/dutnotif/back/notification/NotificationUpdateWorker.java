@@ -1,8 +1,8 @@
-package com.htsml.dutnotif.notification.back;
+package com.htsml.dutnotif.back.notification;
 
-import com.htsml.dutnotif.notification.crawl.DUTNotificationCrawler;
-import com.htsml.dutnotif.notification.crawl.GeneralNotificationDto;
-import com.htsml.dutnotif.notification.crawl.GroupNotificationDto;
+import com.htsml.dutnotif.crawl.notification.DUTNotificationCrawler;
+import com.htsml.dutnotif.crawl.notification.GeneralNotificationDto;
+import com.htsml.dutnotif.crawl.notification.GroupNotificationDto;
 import com.htsml.dutnotif.service.notification.general.GeneralNotificationService;
 import com.htsml.dutnotif.service.notification.group.GroupNotificationService;
 import lombok.extern.log4j.Log4j2;

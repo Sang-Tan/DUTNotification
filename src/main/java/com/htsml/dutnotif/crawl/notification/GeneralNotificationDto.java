@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.notification.crawl;
+package com.htsml.dutnotif.crawl.notification;
 
 public class GeneralNotificationDto extends DUTNotificationDto{
 }
