@@ -16,7 +16,7 @@ import java.util.Objects;
 public class SubscriptionId implements Serializable {
     private String subject;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
     private Subscriber subscriber;
 
