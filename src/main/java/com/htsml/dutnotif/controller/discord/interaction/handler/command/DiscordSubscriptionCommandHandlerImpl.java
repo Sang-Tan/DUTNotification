@@ -9,15 +9,15 @@ import com.htsml.dutnotif.service.subscription.subscription.exception.InvalidSub
 import org.springframework.stereotype.Component;
 
 @Component
-public class DiscordSubscribeCommandHandlerImpl implements DiscordSubscribeCommandHandler {
+public class DiscordSubscriptionCommandHandlerImpl implements DiscordSubscriptionCommandHandler {
     private final DiscordSubscriptionService subscriptionService;
 
-    public DiscordSubscribeCommandHandlerImpl(DiscordSubscriptionService subscriptionService) {
+    public DiscordSubscriptionCommandHandlerImpl(DiscordSubscriptionService subscriptionService) {
         this.subscriptionService = subscriptionService;
     }
 
     @Override
-    public InteractionResponseDto handleCommand(String channelId, ObjectNode dataNode) {
+    public InteractionResponseDto handleSubscribeCommand(String channelId, ObjectNode dataNode) {
         String subject = getSubject(dataNode);
         InteractionResponseDto response = new InteractionResponseDto();
         try {
@@ -27,6 +27,20 @@ public class DiscordSubscribeCommandHandlerImpl implements DiscordSubscribeComma
             response.setContent("Invalid subject: " + subject);
         } catch (AlreadySubscribedException e) {
             response.setContent("You have already subscribed to " + subject);
+        }
+
+        return response;
+    }
+
+    @Override
+    public InteractionResponseDto handleUnsubscribeCommand(String channelId, ObjectNode dataNode) {
+        String subject = getSubject(dataNode);
+        InteractionResponseDto response = new InteractionResponseDto();
+        try {
+            subscriptionService.unsubscribe(channelId, subject);
+            response.setContent("Unsubscribed from " + subject);
+        } catch (InvalidSubjectException e) {
+            response.setContent("Invalid subject: " + subject);
         }
 
         return response;

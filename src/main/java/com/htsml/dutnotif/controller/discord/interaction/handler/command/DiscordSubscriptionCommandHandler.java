@@ -5,6 +5,7 @@ import com.htsml.dutnotif.controller.discord.interaction.handler.dto.Interaction
 import org.springframework.stereotype.Component;
 
 @Component
-public interface DiscordSubscribeCommandHandler {
-    InteractionResponseDto handleCommand(String channelId, ObjectNode dataNode);
+public interface DiscordSubscriptionCommandHandler {
+    InteractionResponseDto handleSubscribeCommand(String channelId, ObjectNode dataNode);
+    InteractionResponseDto handleUnsubscribeCommand(String channelId, ObjectNode dataNode);
 }

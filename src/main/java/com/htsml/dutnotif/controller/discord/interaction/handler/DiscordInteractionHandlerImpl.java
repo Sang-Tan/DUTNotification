@@ -3,23 +3,25 @@ package com.htsml.dutnotif.controller.discord.interaction.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.htsml.dutnotif.controller.discord.interaction.handler.command.DiscordSubscribeCommandHandler;
+import com.htsml.dutnotif.controller.discord.interaction.handler.command.DiscordSubscriptionCommandHandler;
 import com.htsml.dutnotif.controller.discord.interaction.handler.dto.InteractionResponseDto;
 import com.htsml.dutnotif.controller.discord.command.constant.DiscordCommandNames;
 import com.htsml.dutnotif.controller.discord.command.constant.DiscordCommandTypes;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
+@Log4j2
 @Component
 public class DiscordInteractionHandlerImpl implements DiscordInteractionHandler {
     private final ObjectMapper objectMapper;
 
-    private final DiscordSubscribeCommandHandler discordSubscribeCommandHandler;
+    private final DiscordSubscriptionCommandHandler discordSubscriptionCommandHandler;
 
 
     public DiscordInteractionHandlerImpl(ObjectMapper objectMapper,
-                                         DiscordSubscribeCommandHandler discordSubscribeCommandHandler) {
+                                         DiscordSubscriptionCommandHandler discordSubscriptionCommandHandler) {
         this.objectMapper = objectMapper;
-        this.discordSubscribeCommandHandler = discordSubscribeCommandHandler;
+        this.discordSubscriptionCommandHandler = discordSubscriptionCommandHandler;
     }
 
     @Override
@@ -38,14 +40,29 @@ public class DiscordInteractionHandlerImpl implements DiscordInteractionHandler 
             throw new RuntimeException("Command type not supported: " + commandType);
         }
 
-        String commandName = dataNode.get("name").asText();
+        return handleCommandByName(dataNode.get("name").asText(), interaction);
+    }
 
-        if (DiscordCommandNames.SUBSCRIBE.equals(commandName)) {
-            String channelId = interaction.get("channel_id").asText();
-            return discordSubscribeCommandHandler.handleCommand(channelId, dataNode);
-        }
+    private InteractionResponseDto handleCommandByName(String commandName, ObjectNode interaction) {
+        return switch (commandName) {
+            case DiscordCommandNames.SUBSCRIBE -> handleSubscribeCommand(interaction);
+            case DiscordCommandNames.UNSUBSCRIBE -> handleUnsubscribeCommand(interaction);
+            default -> throw new RuntimeException("Command not supported: " + commandName);
+        };
+    }
 
-        throw new RuntimeException("Command not supported: " + commandName);
+    private InteractionResponseDto handleSubscribeCommand(ObjectNode interaction) {
+        ObjectNode dataNode = (ObjectNode) interaction.get("data");
+        String channelId = interaction.get("channel_id").asText();
+
+        return discordSubscriptionCommandHandler.handleSubscribeCommand(channelId, dataNode);
+    }
+
+    private InteractionResponseDto handleUnsubscribeCommand(ObjectNode interaction) {
+        ObjectNode dataNode = (ObjectNode) interaction.get("data");
+        String channelId = interaction.get("channel_id").asText();
+
+        return discordSubscriptionCommandHandler.handleUnsubscribeCommand(channelId, dataNode);
     }
 
     private ObjectNode getInteractionNode(String interaction) {

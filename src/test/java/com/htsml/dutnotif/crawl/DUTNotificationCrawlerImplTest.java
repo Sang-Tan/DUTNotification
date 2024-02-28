@@ -1,9 +1,9 @@
 package com.htsml.dutnotif.crawl;
 
 import com.htsml.dutnotif.crawl.notification.DUTNotificationCrawlerImpl;
+import com.htsml.dutnotif.crawl.notification.DUTNotificationMapperImpl;
 import com.htsml.dutnotif.crawl.notification.GeneralNotificationDto;
 import com.htsml.dutnotif.crawl.notification.GroupNotificationDto;
-import com.htsml.dutnotif.notification.crawl.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

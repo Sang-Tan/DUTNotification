@@ -3,7 +3,32 @@
     {
       "name": "subscribe",
       "type": 1,
-      "description": "Subscribe to a receive notifications",
+      "description": "Subscribe to notifications",
+      "options": [
+        {
+          "type": 1,
+          "name": "general",
+          "description": "General notifications"
+        },
+        {
+          "type": 1,
+          "name": "group",
+          "description": "Group notifications",
+          "options": [
+            {
+              "type": 3,
+              "name": "group-name",
+              "description": "The name of the group",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unsubscribe",
+      "type": 1,
+      "description": "Unsubscribe from notifications",
       "options": [
         {
           "type": 1,
