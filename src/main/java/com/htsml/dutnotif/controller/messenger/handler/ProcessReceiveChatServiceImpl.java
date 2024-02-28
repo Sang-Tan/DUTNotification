@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.messenger.receive;
+package com.htsml.dutnotif.controller.messenger.handler;
 
 import com.htsml.dutnotif.service.messenger.MessengerSubscriptionService;
 import com.htsml.dutnotif.api.messenger.MessengerChatSender;

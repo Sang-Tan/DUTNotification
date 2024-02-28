@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.discord.interaction.constant;
+package com.htsml.dutnotif.controller.discord.interaction.constant;
 
 public class InteractionTypes {
     public static final int PING = 1;

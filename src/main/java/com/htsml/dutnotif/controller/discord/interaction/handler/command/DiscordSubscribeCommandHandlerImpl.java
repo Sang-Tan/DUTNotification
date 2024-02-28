@@ -1,8 +1,8 @@
-package com.htsml.dutnotif.discord.interaction.handler.command;
+package com.htsml.dutnotif.controller.discord.interaction.handler.command;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.htsml.dutnotif.discord.command.constant.DiscordCommandOptions;
-import com.htsml.dutnotif.discord.interaction.handler.dto.InteractionResponseDto;
+import com.htsml.dutnotif.controller.discord.interaction.handler.dto.InteractionResponseDto;
+import com.htsml.dutnotif.controller.discord.command.constant.DiscordCommandOptions;
 import com.htsml.dutnotif.service.discord.DiscordSubscriptionService;
 import com.htsml.dutnotif.service.subscription.subscription.exception.AlreadySubscribedException;
 import com.htsml.dutnotif.service.subscription.subscription.exception.InvalidSubjectException;

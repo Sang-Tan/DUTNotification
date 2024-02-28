@@ -1,11 +1,11 @@
-package com.htsml.dutnotif.messenger.hook;
+package com.htsml.dutnotif.controller.messenger.hook;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.htsml.dutnotif.messenger.receive.ProcessReceiveChatService;
+import com.htsml.dutnotif.controller.messenger.handler.ProcessReceiveChatService;
 import com.htsml.dutnotif.api.messenger.MessengerChatSender;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.discord.interaction.handler.dto;
+package com.htsml.dutnotif.controller.discord.interaction.handler.dto;
 
 import lombok.*;
 

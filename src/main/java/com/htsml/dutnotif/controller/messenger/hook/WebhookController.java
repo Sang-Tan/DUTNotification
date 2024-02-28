@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.messenger.hook;
+package com.htsml.dutnotif.controller.messenger.hook;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;

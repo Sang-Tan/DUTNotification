@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.messenger.receive;
+package com.htsml.dutnotif.controller.messenger.handler;
 
 public interface ProcessReceiveChatService {
     void processMessage(String senderId, String message);

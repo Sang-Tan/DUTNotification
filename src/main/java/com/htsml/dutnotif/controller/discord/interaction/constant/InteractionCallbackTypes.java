@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.discord.interaction.constant;
+package com.htsml.dutnotif.controller.discord.interaction.constant;
 
 public class InteractionCallbackTypes {
     public static final int PONG = 1;

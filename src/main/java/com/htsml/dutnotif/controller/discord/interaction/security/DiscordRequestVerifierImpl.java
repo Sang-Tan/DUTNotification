@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.discord.interaction.security;
+package com.htsml.dutnotif.controller.discord.interaction.security;
 
 import lombok.extern.log4j.Log4j2;
 import net.i2p.crypto.eddsa.EdDSAEngine;

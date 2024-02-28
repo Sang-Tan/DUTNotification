@@ -1,13 +1,13 @@
-package com.htsml.dutnotif.discord.interaction.controller;
+package com.htsml.dutnotif.controller.discord.interaction;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.htsml.dutnotif.discord.interaction.constant.InteractionCallbackTypes;
-import com.htsml.dutnotif.discord.interaction.constant.InteractionTypes;
-import com.htsml.dutnotif.discord.interaction.handler.DiscordInteractionHandler;
-import com.htsml.dutnotif.discord.interaction.handler.dto.InteractionResponseDto;
-import com.htsml.dutnotif.discord.interaction.security.DiscordRequestVerifier;
+import com.htsml.dutnotif.controller.discord.interaction.constant.InteractionCallbackTypes;
+import com.htsml.dutnotif.controller.discord.interaction.constant.InteractionTypes;
+import com.htsml.dutnotif.controller.discord.interaction.handler.DiscordInteractionHandler;
+import com.htsml.dutnotif.controller.discord.interaction.handler.dto.InteractionResponseDto;
+import com.htsml.dutnotif.controller.discord.interaction.security.DiscordRequestVerifier;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

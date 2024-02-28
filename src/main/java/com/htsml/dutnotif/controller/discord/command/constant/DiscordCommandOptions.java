@@ -1,4 +1,4 @@
-package com.htsml.dutnotif.discord.command.constant;
+package com.htsml.dutnotif.controller.discord.command.constant;
 
 public class DiscordCommandOptions {
     public static String SUBSCRIBE_GROUP = "group";
