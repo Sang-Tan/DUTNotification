@@ -11,6 +11,7 @@ import com.htsml.dutnotif.service.subscription.subscriber.dto.SubscriberDto;
 import com.htsml.dutnotif.service.subscription.subscription.exception.AlreadySubscribedException;
 import com.htsml.dutnotif.service.subscription.subscription.exception.InvalidSubjectException;
 import com.htsml.dutnotif.service.subscription.subscription.exception.SubscriberNotExistException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.regex.Matcher;
 
 import static com.htsml.dutnotif.service.subscription.subscription.SubjectNames.*;
 
+@Log4j2
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
@@ -41,7 +43,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             throw new InvalidSubjectException();
         }
 
-        if (!isSubjectValid(subject)) {
+        if (!isSubjectForSubscriptionValid(subject)) {
             throw new InvalidSubjectException();
         }
 
@@ -67,7 +69,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public void unsubscribe(Integer subscriberId, String subject) {
-        if (!isSubjectValid(subject)) {
+        if (!isSubjectForSubscriptionValid(subject)) {
             throw new InvalidSubjectException();
         }
 
@@ -93,10 +95,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public List<SubscriberDto> findSubscribersForSubject(String subject, SubscriberTypeEnum subscriberType) {
-        if (!isSubjectValid(subject)) {
-            throw new InvalidSubjectException();
-        }
-
         if (GENERAL.equals(subject)) {
             return getGeneralSubscribers(subscriberType);
         } else {
@@ -144,7 +142,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                 .toList();
     }
 
-    private boolean isSubjectValid(String subject) {
+    private boolean isSubjectForSubscriptionValid(String subject) {
         Matcher matcher = majorGroupNamePattern.matcher(subject);
         return matcher.matches() ||
                 subject.equals(ALL_GROUP) ||
