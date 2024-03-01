@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 @Component
-public class DiscordApiSenderImpl implements DiscordApiSender{
+public class DiscordApiSenderImpl implements DiscordApiSender {
     private static final String apiUrl = "https://discord.com/api/v10";
 
     private final String appToken;
@@ -28,7 +29,7 @@ public class DiscordApiSenderImpl implements DiscordApiSender{
             connection.setDoOutput(true);
 
             OutputStream outputStream = connection.getOutputStream();
-            outputStream.write(body.getBytes());
+            outputStream.write(body.getBytes(StandardCharsets.UTF_8));
             outputStream.flush();
             outputStream.close();
 
