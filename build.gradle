@@ -18,6 +18,10 @@ java {
     sourceCompatibility = '17'
 }
 
+springBoot {
+    mainClass = 'com.htsml.dutnotif.AppLauncher'
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
