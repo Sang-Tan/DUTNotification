@@ -1,9 +1,9 @@
 package com.htsml.dutnotif.service.notification.group;
 
+import com.htsml.dutnotif.back.notification.NotificationAnnouncer;
 import com.htsml.dutnotif.crawl.notification.GroupNotificationDto;
 import com.htsml.dutnotif.repository.notification.group.GroupNotification;
 import com.htsml.dutnotif.repository.notification.group.GroupNotificationRepository;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,16 +16,16 @@ import java.util.List;
 
 @Component
 public class GroupNotificationServiceImpl implements GroupNotificationService {
-    private final ApplicationEventPublisher eventPublisher;
+    private final NotificationAnnouncer notificationAnnouncer;
 
     private final GroupNotificationMapper groupNotificationMapper;
 
     private final GroupNotificationRepository groupNotificationRepository;
 
-    public GroupNotificationServiceImpl(ApplicationEventPublisher eventPublisher,
+    public GroupNotificationServiceImpl(NotificationAnnouncer notificationAnnouncer,
                                         GroupNotificationMapper groupNotificationMapper,
                                         GroupNotificationRepository groupNotificationRepository) {
-        this.eventPublisher = eventPublisher;
+        this.notificationAnnouncer = notificationAnnouncer;
         this.groupNotificationMapper = groupNotificationMapper;
         this.groupNotificationRepository = groupNotificationRepository;
     }
@@ -48,8 +48,7 @@ public class GroupNotificationServiceImpl implements GroupNotificationService {
         ).toList();
 
         groupNotificationRepository.saveAll(newNotifications);
-        newNotificationDtos.forEach(notification ->
-                eventPublisher.publishEvent(new NewGroupNotificationEvent(this, notification)));
+        notificationAnnouncer.announceGroupNotifications(newNotificationDtos);
     }
 
     private byte[] getMd5Hash(GroupNotificationDto notificationDto) {
