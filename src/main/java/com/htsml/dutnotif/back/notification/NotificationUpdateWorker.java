@@ -6,11 +6,9 @@ import com.htsml.dutnotif.crawl.notification.GroupNotificationDto;
 import com.htsml.dutnotif.service.notification.general.GeneralNotificationService;
 import com.htsml.dutnotif.service.notification.group.GroupNotificationService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Log4j2
 @Component
@@ -29,7 +27,6 @@ public class NotificationUpdateWorker {
         this.generalNotificationService = generalNotificationService;
     }
 
-    @Scheduled(fixedRateString = "${notification.group.update.interval-min}",timeUnit = TimeUnit.MINUTES)
     public void updateGroupNotifications() {
         log.info("Updating group notifications...");
         try {

@@ -1,9 +1,9 @@
 package com.htsml.dutnotif.service.notification.general;
 
+import com.htsml.dutnotif.back.notification.NotificationAnnouncer;
 import com.htsml.dutnotif.crawl.notification.GeneralNotificationDto;
 import com.htsml.dutnotif.repository.notification.general.GeneralNotification;
 import com.htsml.dutnotif.repository.notification.general.GeneralNotificationRepository;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.nio.ByteBuffer;
@@ -15,16 +15,16 @@ import java.util.List;
 
 @Service
 public class GeneralNotificationServiceImpl implements GeneralNotificationService {
-    private final ApplicationEventPublisher eventPublisher;
+    private final NotificationAnnouncer notificationAnnouncer;
 
     private final GeneralNotificationRepository generalNotificationRepository;
 
     private final GeneralNotificationMapper generalNotificationMapper;
 
-    public GeneralNotificationServiceImpl(ApplicationEventPublisher eventPublisher,
+    public GeneralNotificationServiceImpl(NotificationAnnouncer notificationAnnouncer,
                                           GeneralNotificationRepository generalNotificationRepository,
                                           GeneralNotificationMapper generalNotificationMapper) {
-        this.eventPublisher = eventPublisher;
+        this.notificationAnnouncer = notificationAnnouncer;
         this.generalNotificationRepository = generalNotificationRepository;
         this.generalNotificationMapper = generalNotificationMapper;
     }
@@ -45,9 +45,7 @@ public class GeneralNotificationServiceImpl implements GeneralNotificationServic
                 .toList();
 
         generalNotificationRepository.saveAll(newNotifications);
-
-        newNotificationDtos.forEach(notification ->
-                eventPublisher.publishEvent(new NewGeneralNotificationEvent(this, notification)));
+        notificationAnnouncer.announceGeneralNotifications(newNotificationDtos);
     }
 
     private byte[] getMd5Hash(GeneralNotificationDto notificationDto) {
